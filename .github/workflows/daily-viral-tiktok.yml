@@ -1,0 +1,30 @@
+name: Daily Viral NYC TikTok -> Discord
+
+on:
+  schedule:
+    - cron: "0 13 * * *"   # 07:00 MDT (summer)
+    - cron: "0 14 * * *"   # 07:00 MST (winter)
+  workflow_dispatch: {}
+
+jobs:
+  digest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - run: pip install -r requirements.txt
+
+      - name: Send digest
+        env:
+          RAPIDAPI_KEY: ${{ secrets.RAPIDAPI_KEY }}
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          MOUNTAIN_HOUR_GUARD: "7"
+          KEYWORDS: "new york city,nyc,new york"
+          HASHTAGS: "NYC,NewYorkCity,NYCTok,NYCFoodie,NYCLife,NYCEvents,NYCSubway,NYCStreetStyle,ExploreNYC,NYCApartment,NYCRestaurant,ConcreteJungle,NewYorkerTok,NYCContentCreator,VisitNYC"
+          MAX_AGE_DAYS: "1"
+          TOP_N: "5"
+        run: python viral_tiktok_nyc.py
