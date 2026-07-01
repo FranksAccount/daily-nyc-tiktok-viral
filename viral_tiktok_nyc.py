@@ -35,8 +35,8 @@ import requests
 # ----------------------------- Config ---------------------------------------
 
 RAPIDAPI_HOST = os.getenv("RAPIDAPI_HOST", "tiktok-scraper7.p.rapidapi.com")
-RAPIDAPI_KEY = os.getenv("RAPIDAPI_KEY", "")
-DISCORD_WEBHOOK_URL = os.getenv("DISCORD_WEBHOOK_URL", "")
+RAPIDAPI_KEY = os.getenv("RAPIDAPI_KEY", "").strip()
+DISCORD_WEBHOOK_URL = os.getenv("DISCORD_WEBHOOK_URL", "").strip()
 
 KEYWORDS = [k.strip() for k in os.getenv("KEYWORDS", "new york city,nyc,new york").split(",") if k.strip()]
 HASHTAGS = [h.strip().lstrip("#") for h in os.getenv(
